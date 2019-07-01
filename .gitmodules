@@ -1,0 +1,24 @@
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = https://github.com/wincent/command-t
+[submodule "bundle/nord-vim"]
+	path = bundle/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "bundle/vim-ansible-yaml"]
+	path = bundle/vim-ansible-yaml
+	url = https://github.com/chase/vim-ansible-yaml
+[submodule "bundle/vim-gitgutter"]
+	path = bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "bundle/vim-mucomplete"]
+	path = bundle/vim-mucomplete
+	url = https://github.com/lifepillar/vim-mucomplete
+[submodule "bundle/vim-tmux-navigator"]
+	path = bundle/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "bundle/close-buffers.vim"]
+	path = bundle/close-buffers.vim
+	url = https://github.com/Asheq/close-buffers.vim
