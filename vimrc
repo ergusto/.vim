@@ -16,6 +16,8 @@ set binary noeol
 set showcmd
 " Show line numbers in all files
 set number
+" Set relative line numbers
+set relativenumber
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
 " Let the backspace key work normally
