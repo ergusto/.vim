@@ -22,3 +22,6 @@
 [submodule "bundle/close-buffers.vim"]
 	path = bundle/close-buffers.vim
 	url = https://github.com/Asheq/close-buffers.vim
+[submodule "bundle/targets.vim"]
+	path = bundle/targets.vim
+	url = https://github.com/wellle/targets.vim
