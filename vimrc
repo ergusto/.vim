@@ -131,3 +131,7 @@ augroup templates
 	au!
 	autocmd BufNewFile *.* silent! execute '0r ~/.vim/templates/template.'.expand("<afile>:e")
 augroup END
+
+" Add a File text object - to operate on entire files. E.g., yaf to yank an
+" entire file
+onoremap af :<C-u>normal! ggVG<CR>
