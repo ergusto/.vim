@@ -110,7 +110,7 @@ let g:airline#extensions#tabline#enabled=1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod=':t'
 " Show buffer number in tab line
-let g:airline#extensions#tabline#buffer_nr_show=1
+" let g:airline#extensions#tabline#buffer_nr_show=1
 " Gitgutter 
 " Match background color
 let g:gitgutter_override_sign_column_highlight=0
