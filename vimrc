@@ -66,8 +66,6 @@ set tabstop=4
 set shiftwidth=4
 " Tab completion
 set wildmenu wildmode=longest,list,full
-" Set default fold method
-set foldmethod=syntax
 " Put swap files, backup files and undo files in specific folders instead of the working directory
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
