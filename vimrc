@@ -135,3 +135,6 @@ augroup END
 " Add a File text object - to operate on entire files. E.g., yaf to yank an
 " entire file
 onoremap af :<C-u>normal! ggVG<CR>
+
+" Format JSON file into something easily readable
+nmap =j :%!python -m json.tool<CR>
