@@ -138,3 +138,6 @@ onoremap af :<C-u>normal! ggVG<CR>
 
 " Format JSON file into something easily readable
 nmap =j :%!python -m json.tool<CR>
+
+" Tab settings for yaml files
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
