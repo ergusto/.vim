@@ -141,3 +141,18 @@ nmap =j :%!python -m json.tool<CR>
 
 " Tab settings for yaml files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Automatically enter and leave paste mode when pasting 
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+function! XTermPasteBegin()
+    set pastetoggle=<Esc>[201~
+    set paste
+    return ""
+endfunction
+
+" Add fzf to vim runtime path
+set rtp+=~/.fzf
