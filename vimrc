@@ -97,9 +97,9 @@ let g:netrw_dirhistmax=0
 let g:netrw_liststyle=3
 " Remove directory recursively by default
 let g:netrw_localrmdir='rm -rf'
-" Command-T
-" File patterns to ignore in searches
-let g:CommandTWildIgnore=&wildignore . ',.DS_Store,__pycache__,*.pyc,*/node_modules/*,*/tmp/*,.*\.swp$,*.swp,\.git'
+" Netrw annoyances
+autocmd FileType netrw setlocal bufhidden=delete
+
 " airline
 " Show airline even with single file open
 set laststatus=2
@@ -158,12 +158,9 @@ endfunction
 set rtp+=~/.fzf
 
 " FZF shortcuts
-if executable('fzf')
-  " FZF {{{
-  " <C-p> or <C-t> to search files
-  nnoremap <silent> <C-t> :FZF -m<cr>
-  nnoremap <silent> <C-p> :FZF -m<cr>
+"
+" leader f to search files
+nnoremap <silent> <leader>f :Files<cr>
 
-  " <M-p> for open buffers
-  nnoremap <silent> <M-p> :Buffers<cr>
-end
+" leader b for open buffers
+nnoremap <silent> <leader>b :Buffers<cr>
