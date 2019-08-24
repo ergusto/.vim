@@ -156,3 +156,14 @@ endfunction
 
 " Add fzf to vim runtime path
 set rtp+=~/.fzf
+
+" FZF shortcuts
+if executable('fzf')
+  " FZF {{{
+  " <C-p> or <C-t> to search files
+  nnoremap <silent> <C-t> :FZF -m<cr>
+  nnoremap <silent> <C-p> :FZF -m<cr>
+
+  " <M-p> for open buffers
+  nnoremap <silent> <M-p> :Buffers<cr>
+end
