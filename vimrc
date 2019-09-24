@@ -1,7 +1,10 @@
 " Use pathogen for plugins
 execute pathogen#infect()
 " Set colorscheme 
-colorscheme nord
+let g:dracula_italic = 0
+let g:dracula_colorterm = 0
+colorscheme dracula 
+highlight Normal ctermbg=None
 " Map jk to escape key in insert mode
 inoremap jk <ESC>
 " Enable filetype detection, filetype specific scripts and filetype specific indent scripts
@@ -80,6 +83,7 @@ map <right> <C-w><right>
 nnoremap <leader>ev :split ~/.vim/vimrc<cr>
 " Source virmc
 nnoremap <leader>sv :source ~/.vim/vimrc<cr>
+
 " Commands
 " currently empty
 " Netrw
