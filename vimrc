@@ -1,10 +1,7 @@
 " Use pathogen for plugins
 execute pathogen#infect()
 " Set colorscheme 
-let g:dracula_italic = 0
-let g:dracula_colorterm = 0
-colorscheme dracula 
-highlight Normal ctermbg=None
+colorscheme nord
 " Map jk to escape key in insert mode
 inoremap jk <ESC>
 " Enable filetype detection, filetype specific scripts and filetype specific indent scripts
