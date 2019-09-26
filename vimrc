@@ -1,7 +1,17 @@
 " Use pathogen for plugins
 execute pathogen#infect()
 " Set colorscheme 
-colorscheme nord
+set t_Co=256
+colorscheme onehalfdark
+
+let g:airline_theme='onehalfdark'
+
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 " Map jk to escape key in insert mode
 inoremap jk <ESC>
 " Enable filetype detection, filetype specific scripts and filetype specific indent scripts
