@@ -1,23 +1,45 @@
-" Use pathogen for plugins
-execute pathogen#infect()
-" Set colorscheme 
-set t_Co=256
-colorscheme onehalfdark
+call plug#begin('~/.vim/plugged')
 
-let g:airline_theme='onehalfdark'
+Plug 'wincent/command-t'
+Plug 'vim-airline/vim-airline'
+Plug 'chase/vim-ansible-yaml'
+Plug 'airblade/vim-gitgutter'
+Plug 'lifepillar/vim-mucomplete'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'wellle/targets.vim'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'tpope/vim-surround'
+Plug 'chrisbra/improvedft'
+Plug 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'joshdick/onedark.vim'
 
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+call plug#end()
+
+" Use 24-bit (true-color) mode in Vim when outside tmux.
+" If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+" (see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 endif
+
+" Enable syntax highlighting
+syntax on
+" Set colorscheme 
+colorscheme onedark
 
 " Map jk to escape key in insert mode
 inoremap jk <ESC>
 " Enable filetype detection, filetype specific scripts and filetype specific indent scripts
 filetype plugin indent on
-" Enable syntax highlighting
-syntax on
 " Set default encoding
 set encoding=utf-8
 " No empty newlines at the end of files
@@ -86,13 +108,7 @@ map <up> <C-w><up>
 map <down> <C-w><down>
 map <left> <C-w><left>
 map <right> <C-w><right>
-" Open virmc in a horizontal split
-nnoremap <leader>ev :split ~/.vim/vimrc<cr>
-" Source virmc
-nnoremap <leader>sv :source ~/.vim/vimrc<cr>
 
-" Commands
-" currently empty
 " Netrw
 " Remove directory banner in netrw
 let g:netrw_banner=0
@@ -123,12 +139,14 @@ let g:airline#extensions#tabline#fnamemod=':t'
 " Gitgutter 
 " Match background color
 let g:gitgutter_override_sign_column_highlight=0
+
 " Vim-mucomplete
 set completeopt+=menuone
 set completeopt+=noselect
 set completeopt+=noinsert
 set shortmess+=c
 set belloff+=ctrlg
+
 " File handling
 " Set filetype for .jsx files to jsx
 au BufNewFile,BufRead *.jsx setfiletype jsx syntax=javascript
@@ -136,6 +154,7 @@ au BufNewFile,BufRead *.jsx setfiletype jsx syntax=javascript
 au BufNewFile,BufRead *.json setfiletype json syntax=javascript
 " Treat .md files as markdown
 au BufNewFile,BufRead *.md setlocal filetype=markdown
+
 " Auto populate new buffers with template file, determined by buffer's
 " extension
 augroup templates
@@ -153,7 +172,7 @@ nmap =j :%!python -m json.tool<CR>
 " Tab settings for yaml files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-" Automatically enter and leave paste mode when pasting 
+" < Start Automatically enter and leave paste mode when pasting 
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
 
@@ -164,12 +183,12 @@ function! XTermPasteBegin()
     set paste
     return ""
 endfunction
+" > End
 
 " Add fzf to vim runtime path
 set rtp+=~/.fzf
 
 " FZF shortcuts
-"
 " leader f to search files
 nnoremap <silent> <leader>f :Files<cr>
 
