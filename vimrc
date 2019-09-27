@@ -1,6 +1,5 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'wincent/command-t'
 Plug 'vim-airline/vim-airline'
 Plug 'chase/vim-ansible-yaml'
 Plug 'airblade/vim-gitgutter'
