@@ -24,6 +24,9 @@ set cursorline
 " Set colorscheme 
 colorscheme onehalfdark
 
+" :find files recursively
+set path+=**
+
 " Better safe than sorry!
 set nocompatible
 " Map jk to escape key in insert mode
