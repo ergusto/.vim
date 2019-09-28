@@ -1,32 +1,26 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'romainl/Apprentice'
 Plug 'vim-airline/vim-airline'
-Plug 'chase/vim-ansible-yaml'
 Plug 'airblade/vim-gitgutter'
-Plug 'lifepillar/vim-mucomplete'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'wellle/targets.vim'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'tpope/vim-surround'
 Plug 'chrisbra/improvedft'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Color scheme
-Plug 'sonph/onehalf', { 'rtp': 'vim/' }
+" Text objects
+Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
+Plug 'michaeljsmith/vim-indent-object'
 
 call plug#end()
-
 " Enable syntax highlighting
 syntax on
-set t_Co=256
 set cursorline
 " Set colorscheme 
-colorscheme onehalfdark
-
+colorscheme apprentice
 " :find files recursively
 set path+=**
-
 " Better safe than sorry!
 set nocompatible
 " Map jk to escape key in insert mode
