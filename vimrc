@@ -24,6 +24,8 @@ set cursorline
 " Set colorscheme 
 colorscheme onehalfdark
 
+" Better safe than sorry!
+set nocompatible
 " Map jk to escape key in insert mode
 inoremap jk <ESC>
 " Enable filetype detection, filetype specific scripts and filetype specific indent scripts
