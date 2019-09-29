@@ -6,9 +6,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
 " Text objects
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
@@ -184,13 +181,3 @@ function! XTermPasteBegin()
     return ""
 endfunction
 " > End
-
-" Add fzf to vim runtime path
-set rtp+=~/.fzf
-
-" FZF shortcuts
-" leader f to search files
-nnoremap <silent> <leader>f :Files<cr>
-
-" leader b for open buffers
-nnoremap <silent> <leader>b :Buffers<cr>
