@@ -5,6 +5,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -13,10 +14,25 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 
+" Syntax
+Plug 'pangloss/vim-javascript'
+
 call plug#end()
+
 " Enable syntax highlighting
 syntax on
 set cursorline
+
+" Override bright colour in colorscheme.
+function! MyHighlights() abort
+	highlight Function ctermbg=NONE ctermfg=73 cterm=NONE guibg=NONE guifg=#5fafaf gui=NONE
+endfunction
+
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme * call MyHighlights()
+augroup END
+
 " Set colorscheme 
 colorscheme apprentice
 " :find files recursively
@@ -89,12 +105,17 @@ set wildmenu wildmode=longest,list,full
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
+
 " Mappings
 " Remap arrow keys to move between splits
 map <up> <C-w><up>
 map <down> <C-w><down>
 map <left> <C-w><left>
 map <right> <C-w><right>
+
+" Convert current word to uppercase
+nmap <c-u> viwU<esc>
+imap <c-u> <esc>viwUi
 
 " Netrw
 " Remove directory banner in netrw
@@ -121,18 +142,10 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled=1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod=':t'
-" Show buffer number in tab line
-" let g:airline#extensions#tabline#buffer_nr_show=1
+
 " Gitgutter 
 " Match background color
 let g:gitgutter_override_sign_column_highlight=0
-
-" Vim-mucomplete
-set completeopt+=menuone
-set completeopt+=noselect
-set completeopt+=noinsert
-set shortmess+=c
-set belloff+=ctrlg
 
 " File handling
 " Set filetype for .jsx files to jsx
