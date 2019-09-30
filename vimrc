@@ -1,7 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'romainl/apprentice'
+Plug 'sainnhe/vim-color-atlantis'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -20,21 +21,12 @@ call plug#end()
 syntax on
 set cursorline
 
-" Override bright colour in colorscheme.
-function! MyHighlights() abort
-	highlight Function ctermbg=NONE ctermfg=73 cterm=NONE guibg=NONE guifg=#5fafaf gui=NONE
-endfunction
-
-augroup MyColors
-    autocmd!
-    autocmd ColorScheme * call MyHighlights()
-augroup END
-
 " Set colorscheme 
-colorscheme apprentice
+set termguicolors
+colorscheme atlantis
 " :find files recursively
 set path+=**
-" Better safe than sorry!
+" Probably don't need to set this, but BSTS
 set nocompatible
 " Map jk to escape key in insert mode
 inoremap jk <ESC>
@@ -133,16 +125,14 @@ let g:netrw_localrmdir='rm -rf'
 autocmd FileType netrw setlocal bufhidden=delete
 
 " airline
+" Set airline theme
+let g:airline_theme='deus'
 " Show airline even with single file open
 set laststatus=2
 " Enable list of tabs/buffers across top of terminal window
 let g:airline#extensions#tabline#enabled=1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod=':t'
-
-" Gitgutter 
-" Match background color
-let g:gitgutter_override_sign_column_highlight=0
 
 " File handling
 " Set filetype for .jsx files to jsx
@@ -194,3 +184,7 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Open vimrc in a new script
+:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+:nnoremap <leader>sv :source $MYVIMRC<cr>
