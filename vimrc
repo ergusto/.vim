@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'romainl/Apprentice'
+Plug 'romainl/apprentice'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
