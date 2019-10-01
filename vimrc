@@ -1,8 +1,9 @@
+" Plugins
 call plug#begin('~/.vim/plugged')
 
 Plug 'sainnhe/vim-color-atlantis'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'bling/vim-bufferline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -38,10 +39,6 @@ set encoding=utf-8
 set binary noeol
 " Show (partial) command in the last line of the screen.
 set showcmd
-" Show line numbers in all files
-set number
-" Set relative line numbers
-set relativenumber
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
 " Let the backspace key work normally
@@ -124,6 +121,9 @@ let g:netrw_localrmdir='rm -rf'
 " Netrw annoyances
 autocmd FileType netrw setlocal bufhidden=delete
 
+" Gitgutter
+let g:gitgutter_override_sign_column_highlight = 0
+
 " airline
 " Set airline theme
 let g:airline_theme='deus'
@@ -133,6 +133,27 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled=1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod=':t'
+
+" Lightline
+function! LightlineBufferline()
+  call bufferline#refresh_status()
+  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
+endfunction
+
+let g:lightline = {
+	\ 'colorscheme': 'atlantis',
+	\ 'tabline': {
+	\   'left': [ ['bufferline'] ]
+	\ },
+	\ 'component_expand': {
+	\   'bufferline': 'LightlineBufferline',
+	\ },
+	\ 'component_type': {
+	\   'bufferline': 'tabsel',
+	\ },
+	\ }
+
+let g:bufferline_show_bufnr = 0
 
 " File handling
 " Set filetype for .jsx files to jsx
