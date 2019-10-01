@@ -25,6 +25,12 @@ set cursorline
 " Set colorscheme 
 set termguicolors
 colorscheme atlantis
+
+" Set sign column to same colour as terminal
+highlight Normal ctermbg=NONE guibg=NONE
+highlight SignColumn ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
+
 " :find files recursively
 set path+=**
 " Probably don't need to set this, but BSTS
