@@ -29,6 +29,10 @@ colorscheme atlantis
 set path+=**
 " Probably don't need to set this, but BSTS
 set nocompatible
+" Show line numbers
+set number
+" Use relative numbers
+set relativenumber
 " Map jk to escape key in insert mode
 inoremap jk <ESC>
 " Enable filetype detection, filetype specific scripts and filetype specific indent scripts
@@ -209,3 +213,8 @@ endfunction
 " Open vimrc in a new script
 :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 :nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Make sign column same colour as background
+highlight Normal ctermbg=NONE guibg=NONE
+highlight SignColumn ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
