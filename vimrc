@@ -8,6 +8,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
+
 " Text objects
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
@@ -15,6 +18,9 @@ Plug 'michaeljsmith/vim-indent-object'
 
 " Syntax
 Plug 'pangloss/vim-javascript'
+
+" Registers
+Plug 'junegunn/vim-peekaboo'
 
 call plug#end()
 
@@ -25,8 +31,16 @@ set cursorline
 " Set colorscheme 
 set termguicolors
 colorscheme atlantis
+
+" Set sign column to same colour as terminal
+highlight Normal ctermbg=NONE guibg=NONE
+highlight SignColumn ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
+
 " :find files recursively
 set path+=**
+" Ignore node_modules in :find
+set wildignore+=**/node_modules/**
 " Probably don't need to set this, but BSTS
 set nocompatible
 " Show line numbers
