@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'sainnhe/vim-color-atlantis'
 Plug 'itchyny/lightline.vim'
-Plug 'bling/vim-bufferline'
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -158,20 +158,13 @@ function! LightlineBufferline()
   return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
 endfunction
 
-let g:lightline = {
-	\ 'colorscheme': 'atlantis',
-	\ 'tabline': {
-	\   'left': [ ['bufferline'] ]
-	\ },
-	\ 'component_expand': {
-	\   'bufferline': 'LightlineBufferline',
-	\ },
-	\ 'component_type': {
-	\   'bufferline': 'tabsel',
-	\ },
-	\ }
+let g:lightline = {}
+let g:lightline.colorscheme = 'atlantis'
+let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type = {'buffers': 'tabsel'}
 
-let g:bufferline_show_bufnr = 0
+set showtabline=2
 
 " File handling
 " Set filetype for .jsx files to jsx
