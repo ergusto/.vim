@@ -19,6 +19,9 @@ Plug 'michaeljsmith/vim-indent-object'
 " Syntax
 Plug 'pangloss/vim-javascript'
 
+" Registers
+Plug 'junegunn/vim-peekaboo'
+
 call plug#end()
 
 " Enable syntax highlighting
