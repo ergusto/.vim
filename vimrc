@@ -223,3 +223,9 @@ endfunction
 
 " Don't add the comment prefix when hitting enter or o/O on a comment line.
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Gutentags
+" Don't load if ctags isn't installed
+if !executable('ctags')
+    let g:gutentags_dont_load = 1
+endif
