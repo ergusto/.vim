@@ -39,6 +39,8 @@ highlight LineNr ctermbg=NONE guibg=NONE
 
 " :find files recursively
 set path+=**
+" Ignore node_modules in :find
+set wildignore+=**/node_modules/**
 " Probably don't need to set this, but BSTS
 set nocompatible
 " Map jk to escape key in insert mode
