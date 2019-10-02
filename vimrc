@@ -8,6 +8,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
+
 " Text objects
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
