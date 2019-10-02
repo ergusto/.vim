@@ -228,7 +228,5 @@ endfunction
 :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 :nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" Make sign column same colour as background
-highlight Normal ctermbg=NONE guibg=NONE
-highlight SignColumn ctermbg=NONE guibg=NONE
-highlight LineNr ctermbg=NONE guibg=NONE
+" Don't add the comment prefix when hitting enter or o/O on a comment line.
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
