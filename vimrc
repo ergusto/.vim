@@ -8,6 +8,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'qpkorr/vim-bufkill'
+Plug 'easymotion/vim-easymotion'
 
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
@@ -44,6 +45,7 @@ highlight LineNr ctermbg=NONE guibg=NONE
 set path+=**
 " Ignore node_modules in :find
 set wildignore+=**/node_modules/**
+set wildignore+=/usr/include/**
 " Probably don't need to set this, but BSTS
 set nocompatible
 " Show line numbers
