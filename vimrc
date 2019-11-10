@@ -7,6 +7,7 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'qpkorr/vim-bufkill'
 
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
@@ -31,6 +32,8 @@ set cursorline
 " Set colorscheme 
 set termguicolors
 colorscheme atlantis
+
+highlight TabLineFill guibg=#434c5e guifg=#434c5e
 
 " Set sign column to same colour as terminal
 highlight Normal ctermbg=NONE guibg=NONE
@@ -117,6 +120,16 @@ map <down> <C-w><down>
 map <left> <C-w><left>
 map <right> <C-w><right>
 
+" Find files
+nnoremap <leader>f :find<Space>
+
+" Buffer navigation
+noremap <Tab> :bn<CR>
+noremap <S-Tab> :bp<CR>
+
+" List buffers and immediately enter command mode
+nnoremap <leader>b :ls<CR>:b<Space>
+
 " Convert current word to uppercase
 nmap <c-u> viwU<esc>
 imap <c-u> <esc>viwUi
@@ -140,7 +153,7 @@ let g:netrw_localrmdir='rm -rf'
 autocmd FileType netrw setlocal bufhidden=delete
 
 " Gitgutter
-let g:gitgutter_override_sign_column_highlight = 0
+"let g:gitgutter_override_sign_column_highlight = 0
 
 " airline
 " Set airline theme
@@ -163,6 +176,7 @@ let g:lightline.colorscheme = 'atlantis'
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
+let g:lightline#bufferline#filename_modifier = ':t'
 
 set showtabline=2
 
@@ -229,3 +243,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 if !executable('ctags')
     let g:gutentags_dont_load = 1
 endif
+
+" Vim bufkill
+let g:BufKillCreateMappings = 0
