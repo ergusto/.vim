@@ -132,6 +132,9 @@ noremap <S-Tab> :bp<CR>
 " List buffers and immediately enter command mode
 nnoremap <leader>b :ls<CR>:b<Space>
 
+" Delete current buffer without touching split
+command! Bd bp|bd #
+
 " Convert current word to uppercase
 nmap <c-u> viwU<esc>
 imap <c-u> <esc>viwUi
