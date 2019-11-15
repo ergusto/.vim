@@ -134,7 +134,7 @@ nnoremap <leader>b :ls<CR>:b<Space>
 
 " Delete current buffer without touching split
 command! Bd bp|bd #
-nnoremap <leader>d :Bd
+nnoremap <leader>d :Bd<CR>
 
 " Convert current word to uppercase
 nmap <c-u> viwU<esc>
