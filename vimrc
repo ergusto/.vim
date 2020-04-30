@@ -2,12 +2,13 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'sainnhe/vim-color-atlantis'
+Plug 'arcticicestudio/nord-vim'
+
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'qpkorr/vim-bufkill'
 Plug 'easymotion/vim-easymotion'
 
 " Tags
@@ -19,7 +20,8 @@ Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 
 " Syntax
-Plug 'pangloss/vim-javascript'
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 
 " Registers
 Plug 'junegunn/vim-peekaboo'
@@ -32,7 +34,7 @@ set cursorline
 
 " Set colorscheme 
 set termguicolors
-colorscheme atlantis
+colorscheme nord
 
 highlight TabLineFill guibg=#434c5e guifg=#434c5e
 
@@ -136,6 +138,10 @@ nnoremap <leader>b :ls<CR>:b<Space>
 command! Bd bp|bd #
 nnoremap <leader>d :Bd<CR>
 
+" Delete all buffers except this one
+command! BufOnly execute '%bdelete|edit #|normal `"'
+nnoremap <leader>o :BufOnly<CR>
+
 " Convert current word to uppercase
 nmap <c-u> viwU<esc>
 imap <c-u> <esc>viwUi
@@ -185,14 +191,6 @@ let g:lightline.component_type = {'buffers': 'tabsel'}
 let g:lightline#bufferline#filename_modifier = ':t'
 
 set showtabline=2
-
-" File handling
-" Set filetype for .jsx files to jsx
-au BufNewFile,BufRead *.jsx setfiletype jsx syntax=javascript
-" Set filetype for json
-au BufNewFile,BufRead *.json setfiletype json syntax=javascript
-" Treat .md files as markdown
-au BufNewFile,BufRead *.md setlocal filetype=markdown
 
 " Auto populate new buffers with template file, determined by buffer's
 " extension
