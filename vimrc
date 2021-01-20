@@ -204,7 +204,7 @@ function! LightlineBufferline()
 endfunction
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'atlantis'
+let g:lightline.colorscheme = 'nord'
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
