@@ -4,15 +4,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'sainnhe/vim-color-atlantis'
 Plug 'arcticicestudio/nord-vim'
 
+Plug 'preservim/nerdtree'
+
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'easymotion/vim-easymotion'
-
-" Tags
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'lilydjwg/colorizer'
 
 " Text objects
 Plug 'tpope/vim-surround'
@@ -35,6 +35,9 @@ set cursorline
 " Set colorscheme 
 set termguicolors
 colorscheme nord
+
+" Set leader
+map <Space> <Leader>
 
 highlight TabLineFill guibg=#434c5e guifg=#434c5e
 
@@ -142,6 +145,9 @@ nnoremap <leader>d :Bd<CR>
 command! BufOnly execute '%bdelete|edit #|normal `"'
 nnoremap <leader>o :BufOnly<CR>
 
+" Clear search results
+nnoremap <leader>c :noh<CR>
+
 " Convert current word to uppercase
 nmap <c-u> viwU<esc>
 imap <c-u> <esc>viwUi
@@ -163,6 +169,20 @@ let g:netrw_liststyle=3
 let g:netrw_localrmdir='rm -rf'
 " Netrw annoyances
 autocmd FileType netrw setlocal bufhidden=delete
+
+" Nerdtree
+" Open nerdtree
+nnoremap <leader>n :NERDTreeToggle<CR>
+
+" Open Nerdtree if vim opens in a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+" Show hidden files in Nerdtree
+let NERDTreeShowHidden=1
+
+" Set default Nertree width
+let g:NERDTreeWinSize=50
 
 " Gitgutter
 "let g:gitgutter_override_sign_column_highlight = 0
@@ -242,11 +262,10 @@ endfunction
 " Don't add the comment prefix when hitting enter or o/O on a comment line.
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Gutentags
-" Don't load if ctags isn't installed
-if !executable('ctags')
-    let g:gutentags_dont_load = 1
-endif
-
 " Vim bufkill
 let g:BufKillCreateMappings = 0
+
+" Define a simple "search" text object.
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
