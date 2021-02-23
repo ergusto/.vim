@@ -152,6 +152,9 @@ nnoremap <leader>c :noh<CR>
 nmap <c-u> viwU<esc>
 imap <c-u> <esc>viwUi
 
+" Show trailing whitespaces as dots
+set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
+
 " Netrw
 " Remove directory banner in netrw
 let g:netrw_banner=0
@@ -228,6 +231,10 @@ nmap =j :%!python -m json.tool<CR>
 
 " Tab settings for yaml files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Formatting settings for project specific directories
+autocmd BufRead */Kaldor/**/*.js,*/Kaldor/**/*.sass setlocal ts=2 sw=2 expandtab
+autocmd BufRead */Kaldor/**/*.php setlocal ts=4 sw=4 expandtab
 
 " < Start Automatically enter and leave paste mode when pasting 
 let &t_SI .= "\<Esc>[?2004h"
