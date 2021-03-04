@@ -31,6 +31,7 @@ call plug#end()
 " Enable syntax highlighting
 syntax on
 set cursorline
+set cursorcolumn
 
 " Set colorscheme 
 set termguicolors
