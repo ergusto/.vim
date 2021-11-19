@@ -1,8 +1,9 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'sainnhe/vim-color-atlantis'
 Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
+Plug 'shinchu/lightline-gruvbox.vim'
 
 Plug 'preservim/nerdtree'
 
@@ -35,7 +36,7 @@ set cursorcolumn
 
 " Set colorscheme 
 set termguicolors
-colorscheme nord
+colorscheme gruvbox
 
 " Set leader
 map <Space> <Leader>
@@ -208,7 +209,7 @@ function! LightlineBufferline()
 endfunction
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'nord'
+let g:lightline.colorscheme = 'gruvbox'
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
