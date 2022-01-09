@@ -14,6 +14,7 @@ Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'easymotion/vim-easymotion'
 Plug 'lilydjwg/colorizer'
+Plug 'Yggdroot/indentLine'
 
 " Text objects
 Plug 'tpope/vim-surround'
@@ -23,6 +24,7 @@ Plug 'michaeljsmith/vim-indent-object'
 " Syntax
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'stephpy/vim-yaml'
 
 " Registers
 Plug 'junegunn/vim-peekaboo'
@@ -112,9 +114,11 @@ set scrolloff=3
 " Don't resize splits when closing
 set noea
 " Tab length
-set tabstop=4
+set tabstop=2
 " When indenting with '>', use 4 spaces
-set shiftwidth=4
+set shiftwidth=2
+" Smartly add indentation on new lines
+set autoindent smartindent
 " Tab completion
 set wildmenu wildmode=longest,list,full
 " Put swap files, backup files and undo files in specific folders instead of the working directory
@@ -128,6 +132,9 @@ map <up> <C-w><up>
 map <down> <C-w><down>
 map <left> <C-w><left>
 map <right> <C-w><right>
+
+" Capital Y to yank to end of line
+nnoremap Y yg_
 
 " Find files
 nnoremap <leader>f :find<Space>
@@ -236,7 +243,7 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Formatting settings for project specific directories
 autocmd BufRead */Kaldor/**/*.js,*/Kaldor/**/*.sass setlocal ts=2 sw=2 expandtab
-autocmd BufRead */Kaldor/**/*.php setlocal ts=4 sw=4 expandtab
+autocmd BufRead */Kaldor/**/*.php setlocal ts=4 sw=4 expandtab shiftwidth=4
 
 " < Start Automatically enter and leave paste mode when pasting 
 let &t_SI .= "\<Esc>[?2004h"
