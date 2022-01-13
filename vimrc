@@ -14,7 +14,6 @@ Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'easymotion/vim-easymotion'
 Plug 'lilydjwg/colorizer'
-Plug 'Yggdroot/indentLine'
 
 " Text objects
 Plug 'tpope/vim-surround'
