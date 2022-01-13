@@ -38,6 +38,7 @@ set cursorcolumn
 
 " Set colorscheme 
 set termguicolors
+set background=dark
 colorscheme gruvbox
 
 " Set leader
