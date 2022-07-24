@@ -2,6 +2,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
+Plug 'ericbn/vim-solarized'
 Plug 'morhetz/gruvbox'
 Plug 'shinchu/lightline-gruvbox.vim'
 
@@ -31,7 +32,7 @@ Plug 'junegunn/vim-peekaboo'
 call plug#end()
 
 " Enable syntax highlighting
-syntax on
+syntax enable
 set cursorline
 set cursorcolumn
 
@@ -243,7 +244,7 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Formatting settings for project specific directories
 autocmd BufRead */Kaldor/**/*.js,*/Kaldor/**/*.sass setlocal ts=2 sw=2 expandtab
-autocmd BufRead */Kaldor/**/*.php setlocal ts=4 sw=4 expandtab shiftwidth=4
+autocmd BufRead */Kaldor/**/*.php,*/Kaldor/**/*.mustache setlocal ts=4 sw=4 expandtab shiftwidth=4
 
 " < Start Automatically enter and leave paste mode when pasting 
 let &t_SI .= "\<Esc>[?2004h"
@@ -285,3 +286,59 @@ let g:BufKillCreateMappings = 0
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
+
+function! Background_Lightline_React()
+	if &background ==? 'light'
+		execute 'source' globpath(&rtp, 'plugged/lightline.vim/autoload/lightline/colorscheme/solarized.vim')
+	else
+		execute 'source' globpath(&rtp, 'plugged/lightline-gruvbox.vim/plugin/lightline-gruvbox.vim')
+	endif
+endfunction
+
+autocmd OptionSet background
+      \ call Background_Lightline_React()
+      \ | call lightline#colorscheme() | call lightline#update()
+
+function SetDarkMode()
+	set background=dark
+	colorscheme gruvbox
+	let g:lightline.colorscheme = 'gruvbox'
+	call lightline#init()
+	call lightline#colorscheme()
+	call lightline#update()
+	silent !osascript -e 'tell app "System Events" to keystroke "g" using {shift down, option down, control down}'
+endfunction
+
+function SetLightMode()
+	set background=light
+	colorscheme solarized
+	let g:lightline.colorscheme = 'solarized'
+	call lightline#init()
+	call lightline#colorscheme()
+	call lightline#update()
+	silent !osascript -e 'tell app "System Events" to keystroke "s" using {shift down, option down, control down}'
+endfunction
+
+function! Dark_Mode_Swap() 
+	if &background ==? 'dark'
+		call SetLightMode()
+	else
+		call SetDarkMode()
+	endif
+endfunction
+
+command! DarkModeToggle call Dark_Mode_Swap()
+
+function! SetBackgroundMode()
+	if $TERM_PROGRAM ==? 'iTerm.app'
+		" Outputs Dark in dark mode and random list in light mode
+		let s:mode = systemlist("defaults read -g AppleInterfaceStyle")
+		if typename(s:mode) == 'list<unknown>'
+			call SetLightMode()
+		else
+			call SetDarkMode()
+		endif
+	endif
+endfunction
+
+call SetBackgroundMode()
