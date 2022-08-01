@@ -328,9 +328,10 @@ function! Dark_Mode_Swap()
 endfunction
 
 command! DarkModeToggle call Dark_Mode_Swap()
+command! ToggleDarkMode call Dark_Mode_Swap()
 
 function! SetBackgroundMode()
-	if $TERM_PROGRAM ==? 'iTerm.app'
+	if $TERM_PROGRAM ==? 'iTerm.app' || $TERM_PROGRAM ==? 'tmux'
 		" Outputs Dark in dark mode and random list in light mode
 		let s:mode = systemlist("defaults read -g AppleInterfaceStyle")
 		if typename(s:mode) == 'list<unknown>'
