@@ -1,10 +1,9 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'arcticicestudio/nord-vim'
-Plug 'ericbn/vim-solarized'
-Plug 'morhetz/gruvbox'
+" Colour schemes
 Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'ergusto/vim-color-atlantis'
 
 Plug 'preservim/nerdtree'
 
@@ -21,13 +20,20 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 
+" Highlighting
+Plug 'andymass/vim-matchup'
+
 " Syntax
-Plug 'yuezk/vim-js'
+Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'stephpy/vim-yaml'
 
 " Registers
 Plug 'junegunn/vim-peekaboo'
+
+" FZF
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 
 call plug#end()
 
@@ -35,11 +41,14 @@ call plug#end()
 syntax enable
 set cursorline
 set cursorcolumn
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 " Set colorscheme 
+" Enable true color
 set termguicolors
-set background=dark
-colorscheme gruvbox
+colorscheme atlantis
 
 " Set leader
 map <Space> <Leader>
@@ -88,8 +97,6 @@ set shortmess=atI
 set ruler
 " Show the filename in the window titlebar
 set title
-" Hightlight matching bracket
-set showmatch
 " Make vsplit place the new buffer to the right of the current buffer
 set splitright
 " Make split place the new buffer below the current buffer
@@ -137,15 +144,9 @@ map <right> <C-w><right>
 " Capital Y to yank to end of line
 nnoremap Y yg_
 
-" Find files
-nnoremap <leader>f :find<Space>
-
 " Buffer navigation
 noremap <Tab> :bn<CR>
 noremap <S-Tab> :bp<CR>
-
-" List buffers and immediately enter command mode
-nnoremap <leader>b :ls<CR>:b<Space>
 
 " Delete current buffer without touching split
 command! Bd bp|bd #
@@ -217,7 +218,7 @@ function! LightlineBufferline()
 endfunction
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.colorscheme = 'atlantis'
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
@@ -242,32 +243,49 @@ nmap =j :%!python -m json.tool<CR>
 " Tab settings for yaml files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-" Formatting settings for project specific directories
-autocmd BufRead */Kaldor/**/*.js,*/Kaldor/**/*.sass setlocal ts=2 sw=2 expandtab
-autocmd BufRead */Kaldor/**/*.php,*/Kaldor/**/*.mustache setlocal ts=4 sw=4 expandtab shiftwidth=4
+" FZF config/Mappings
 
-" < Start Automatically enter and leave paste mode when pasting 
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
+" Prevent FZF commands from opening in none modifiable buffers
+" https://github.com/junegunn/fzf/issues/453#issuecomment-700943343
 
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-
-function! XTermPasteBegin()
-    set pastetoggle=<Esc>[201~
-    set paste
-    return ""
+function! FZFOpen(cmd)
+    " If more than 1 window, and buffer is not modifiable or file type is
+    " NERD tree or Quickfix type
+    if winnr('$') > 1 && (!&modifiable || &ft == 'nerdtree' || &ft == 'qf')
+        " Move one window to the right, then up
+        wincmd l
+    endif
+    exe a:cmd
 endfunction
-" > End
 
+" FZF in Open buffers
+nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
+
+" FZF Search for Files
+nnoremap <silent> <leader>f :call FZFOpen(":Files")<CR>
+
+" Find search term within files recursively
+nnoremap <silent> <leader>fi :call FZFOpen(":Rg")<CR>
+
+" Coc and vim
 " Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
