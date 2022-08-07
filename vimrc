@@ -2,8 +2,8 @@
 call plug#begin('~/.vim/plugged')
 
 " Colour schemes
-Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'ergusto/vim-color-atlantis'
+Plug 'altercation/vim-colors-solarized'
+Plug 'sainnhe/everforest'
 
 Plug 'preservim/nerdtree'
 
@@ -26,6 +26,7 @@ Plug 'andymass/vim-matchup'
 " Syntax
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'leafgarland/typescript-vim'
 
 " Registers
 Plug 'junegunn/vim-peekaboo'
@@ -47,8 +48,14 @@ set signcolumn=yes
 
 " Set colorscheme 
 " Enable true color
-set termguicolors
-colorscheme atlantis
+if has('termguicolors')
+	set termguicolors
+endif
+
+set background=dark
+
+let g:everforest_background = 'dark'
+colorscheme everforest
 
 " Set leader
 map <Space> <Leader>
@@ -201,16 +208,6 @@ let g:NERDTreeWinSize=50
 " Gitgutter
 "let g:gitgutter_override_sign_column_highlight = 0
 
-" airline
-" Set airline theme
-let g:airline_theme='deus'
-" Show airline even with single file open
-set laststatus=2
-" Enable list of tabs/buffers across top of terminal window
-let g:airline#extensions#tabline#enabled=1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod=':t'
-
 " Lightline
 function! LightlineBufferline()
   call bufferline#refresh_status()
@@ -218,7 +215,7 @@ function! LightlineBufferline()
 endfunction
 
 let g:lightline = {}
-let g:lightline.colorscheme = 'atlantis'
+let g:lightline.colorscheme = 'everforest'
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
@@ -262,7 +259,7 @@ endfunction
 nnoremap <silent> <leader>b :call FZFOpen(":Buffers")<CR>
 
 " FZF Search for Files
-nnoremap <silent> <leader>f :call FZFOpen(":Files")<CR>
+nnoremap <silent> <leader>f :call FZFOpen(":GFiles")<CR>
 
 " Find search term within files recursively
 nnoremap <silent> <leader>fi :call FZFOpen(":Rg")<CR>
@@ -305,11 +302,12 @@ vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
 
+" Leaving this in for simplicity in case I ever want to change to a different light/dark colorscheme
 function! Background_Lightline_React()
 	if &background ==? 'light'
-		execute 'source' globpath(&rtp, 'plugged/lightline.vim/autoload/lightline/colorscheme/solarized.vim')
+		execute 'source' globpath(&rtp, 'plugged/everforest/autoload/lightline/colorscheme/everforest.vim')
 	else
-		execute 'source' globpath(&rtp, 'plugged/lightline-gruvbox.vim/plugin/lightline-gruvbox.vim')
+		execute 'source' globpath(&rtp, 'plugged/everforest/autoload/lightline/colorscheme/everforest.vim')
 	endif
 endfunction
 
@@ -319,21 +317,11 @@ autocmd OptionSet background
 
 function SetDarkMode()
 	set background=dark
-	colorscheme gruvbox
-	let g:lightline.colorscheme = 'gruvbox'
-	call lightline#init()
-	call lightline#colorscheme()
-	call lightline#update()
 	silent !osascript -e 'tell app "System Events" to keystroke "g" using {shift down, option down, control down}'
 endfunction
 
 function SetLightMode()
 	set background=light
-	colorscheme solarized
-	let g:lightline.colorscheme = 'solarized'
-	call lightline#init()
-	call lightline#colorscheme()
-	call lightline#update()
 	silent !osascript -e 'tell app "System Events" to keystroke "s" using {shift down, option down, control down}'
 endfunction
 
@@ -347,17 +335,3 @@ endfunction
 
 command! DarkModeToggle call Dark_Mode_Swap()
 command! ToggleDarkMode call Dark_Mode_Swap()
-
-function! SetBackgroundMode()
-	if $TERM_PROGRAM ==? 'iTerm.app' || $TERM_PROGRAM ==? 'tmux'
-		" Outputs Dark in dark mode and random list in light mode
-		let s:mode = systemlist("defaults read -g AppleInterfaceStyle")
-		if typename(s:mode) == 'list<unknown>'
-			call SetLightMode()
-		else
-			call SetDarkMode()
-		endif
-	endif
-endfunction
-
-call SetBackgroundMode()
