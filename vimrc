@@ -263,12 +263,24 @@ nnoremap <silent> <leader>f :call FZFOpen(":GFiles")<CR>
 nnoremap <silent> <leader>fi :call FZFOpen(":Rg")<CR>
 
 " Coc and vim
+
+" Typescript coc server
 let g:coc_global_extensions = [
-			\ 'coc-tsserver'
+			\ 'coc-tsserver',
+			\ 'coc-tslint',
+			\ 'coc-css'
 			\ ]
+
+" Conditionally load prettier and eslint extensions if the project contains those tools
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
 " Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1):
       \ CheckBackspace() ? "\<Tab>" :
@@ -279,6 +291,11 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Apply codeaction to the current line
+nmap <leader>ac <Plug>(coc-codeaction)
+" Apply hotfix to problem on current line
+nmap <leader>qf <Plug>(coc-fix-current)
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
