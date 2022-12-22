@@ -1,3 +1,6 @@
+set nocompatible
+
+" Show line numbers
 " Plugins
 call plug#begin('~/.vim/plugged')
 
@@ -60,8 +63,6 @@ colorscheme everforest
 " Set leader
 map <Space> <Leader>
 
-highlight TabLineFill guibg=#434c5e guifg=#434c5e
-
 " Set sign column to same colour as terminal
 highlight Normal ctermbg=NONE guibg=NONE
 highlight SignColumn ctermbg=NONE guibg=NONE
@@ -72,9 +73,6 @@ set path+=**
 " Ignore node_modules in :find
 set wildignore+=**/node_modules/**
 set wildignore+=/usr/include/**
-" Probably don't need to set this, but BSTS
-set nocompatible
-" Show line numbers
 set number
 " Use relative numbers
 set relativenumber
@@ -265,6 +263,9 @@ nnoremap <silent> <leader>f :call FZFOpen(":GFiles")<CR>
 nnoremap <silent> <leader>fi :call FZFOpen(":Rg")<CR>
 
 " Coc and vim
+let g:coc_global_extensions = [
+			\ 'coc-tsserver'
+			\ ]
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
