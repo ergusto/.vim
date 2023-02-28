@@ -171,24 +171,6 @@ imap <c-u> <esc>viwUi
 " Show trailing whitespaces as dots
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 
-" Netrw
-" Remove directory banner in netrw
-let g:netrw_banner=0
-" Set default netrw windowsize
-let g:netrw_winsize=-30
-" Hide certain files from netrw
-let g:netrw_list_hide='.DS_Store,__pycache__,.*\.swp$,*/tmp/*,*.swp,\.git/'
-" Hide hidden items by default
-let g:netrw_hide=1
-" Disable .netrwhist files
-let g:netrw_dirhistmax=0
-" Tree listing
-let g:netrw_liststyle=3
-" Remove directory recursively by default
-let g:netrw_localrmdir='rm -rf'
-" Netrw annoyances
-autocmd FileType netrw setlocal bufhidden=delete
-
 " Nerdtree
 " Open nerdtree
 nnoremap <leader>n :NERDTreeToggle<CR>
@@ -319,37 +301,3 @@ let g:BufKillCreateMappings = 0
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
-
-" Leaving this in for simplicity in case I ever want to change to a different light/dark colorscheme
-function! Background_Lightline_React()
-	if &background ==? 'light'
-		execute 'source' globpath(&rtp, 'plugged/everforest/autoload/lightline/colorscheme/everforest.vim')
-	else
-		execute 'source' globpath(&rtp, 'plugged/everforest/autoload/lightline/colorscheme/everforest.vim')
-	endif
-endfunction
-
-autocmd OptionSet background
-      \ call Background_Lightline_React()
-      \ | call lightline#colorscheme() | call lightline#update()
-
-function SetDarkMode()
-	set background=dark
-	silent !osascript -e 'tell app "System Events" to keystroke "g" using {shift down, option down, control down}'
-endfunction
-
-function SetLightMode()
-	set background=light
-	silent !osascript -e 'tell app "System Events" to keystroke "s" using {shift down, option down, control down}'
-endfunction
-
-function! Dark_Mode_Swap() 
-	if &background ==? 'dark'
-		call SetLightMode()
-	else
-		call SetDarkMode()
-	endif
-endfunction
-
-command! DarkModeToggle call Dark_Mode_Swap()
-command! ToggleDarkMode call Dark_Mode_Swap()
