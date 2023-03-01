@@ -10,8 +10,9 @@ Plug 'sainnhe/everforest'
 
 Plug 'preservim/nerdtree'
 
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/improvedft'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -185,22 +186,6 @@ let NERDTreeShowHidden=1
 " Set default Nertree width
 let g:NERDTreeWinSize=50
 
-" Gitgutter
-"let g:gitgutter_override_sign_column_highlight = 0
-
-" Lightline
-function! LightlineBufferline()
-  call bufferline#refresh_status()
-  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
-endfunction
-
-let g:lightline = {}
-let g:lightline.colorscheme = 'everforest'
-let g:lightline.tabline = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type = {'buffers': 'tabsel'}
-let g:lightline#bufferline#filename_modifier = ':t'
-
 set showtabline=2
 
 " Auto populate new buffers with template file, determined by buffer's
@@ -301,3 +286,8 @@ let g:BufKillCreateMappings = 0
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
+
+" bufferline.nvim
+lua << EOF
+require("bufferline").setup{}
+EOF
