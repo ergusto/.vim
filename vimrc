@@ -31,6 +31,7 @@ Plug 'andymass/vim-matchup'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
+Plug 'prisma/vim-prisma'
 
 " Registers
 Plug 'junegunn/vim-peekaboo'
@@ -235,8 +236,22 @@ nnoremap <silent> <leader>fi :call FZFOpen(":Rg")<CR>
 let g:coc_global_extensions = [
 			\ 'coc-tsserver',
 			\ 'coc-tslint',
-			\ 'coc-css'
+			\ 'coc-css',
+			\ 'coc-tailwindcss',
+			\ 'coc-prisma'
 			\ ]
+
+" Show inferred type definition from coc.vim
+
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
 " Conditionally load prettier and eslint extensions if the project contains those tools
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
@@ -289,5 +304,9 @@ omap s :normal vs<CR>
 
 " bufferline.nvim
 lua << EOF
-require("bufferline").setup{}
+require("bufferline").setup{
+	options = {
+		diagnostics = "coc",
+	}
+}
 EOF
